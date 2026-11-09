@@ -1,0 +1,667 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Beyond the Vault: What a Bank Internship Taught Me About APIs | Rubaika Zaidi</title>
+
+    <meta name="description" content="How a bank internship introduced me to APIs, JSON, financial technology, authentication and the systems connecting modern banking.">
+
+    <meta name="author" content="Rubaika Zaidi">
+    <meta name="robots" content="noindex, follow">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* BLOG ARTICLE PAGE */
+
+        .article-page {
+            padding: 4rem 0 6rem;
+        }
+
+        .article-container {
+            max-width: 820px;
+            margin: 0 auto;
+        }
+
+        .article-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: .88rem;
+            margin-bottom: 3rem;
+            transition: color .2s ease;
+        }
+
+        .article-back:hover {
+            color: var(--brass);
+        }
+
+        .article-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .article-category {
+            color: var(--brass);
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            margin-bottom: 1.2rem;
+        }
+
+        .article-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            line-height: 1.08;
+            letter-spacing: -.045em;
+            color: var(--ink);
+            margin: 0 0 1.5rem;
+            font-weight: 700;
+        }
+
+        .article-subtitle {
+            color: var(--muted);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            max-width: 650px;
+            margin-bottom: 1.8rem;
+        }
+
+        .article-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            color: var(--muted);
+            font-size: .82rem;
+        }
+
+        .meta-dot {
+            color: var(--brass);
+        }
+
+        .article-divider {
+            border: none;
+            border-top: 1px solid var(--line);
+            margin: 2rem 0 2.8rem;
+        }
+
+        /* ARTICLE BODY */
+
+        .article-content {
+            font-size: 1.05rem;
+            line-height: 1.95;
+            color: var(--ink);
+        }
+
+        .article-content p {
+            margin: 0 0 1.7rem;
+        }
+
+        .article-content .article-lead {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--ink);
+        }
+
+        .article-content strong {
+            color: var(--ink);
+            font-weight: 700;
+        }
+
+        .article-content h2 {
+            font-size: 1.35rem;
+            line-height: 1.4;
+            letter-spacing: -.02em;
+            color: var(--ink);
+            margin: 3rem 0 1.2rem;
+        }
+
+        .article-content code {
+            font-family: monospace;
+            font-size: .9em;
+            background: var(--surface);
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+
+        /* JSON CODE EXAMPLES */
+
+        .code-example {
+            margin: 2rem 0 2.5rem;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--surface);
+        }
+
+        .code-label {
+            padding: 11px 17px;
+            border-bottom: 1px solid var(--line);
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .code-example pre {
+            margin: 0;
+            padding: 1.3rem 1.5rem;
+            overflow-x: auto;
+            font-size: .88rem;
+            line-height: 1.8;
+            color: var(--ink);
+            font-family: "SFMono-Regular", Consolas, monospace;
+        }
+
+        .code-example pre code {
+            background: none;
+            padding: 0;
+            border-radius: 0;
+            font-size: inherit;
+            white-space: pre;
+        }
+
+        /* CLOSING SECTION */
+
+        .article-closing {
+            margin-top: 3rem;
+            padding: 1.8rem 1.6rem;
+            border-left: 3px solid var(--brass);
+            background: var(--surface);
+            border-radius: 0 10px 10px 0;
+            font-size: 1.15rem;
+            line-height: 1.8;
+        }
+
+        .article-closing p {
+            margin: 0;
+        }
+
+        /* ARTICLE TAGS */
+
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin-top: 2rem;
+        }
+
+        .article-tag {
+            padding: 7px 13px;
+            border: 1px solid var(--line);
+            border-radius: 30px;
+            color: var(--muted);
+            font-size: .76rem;
+        }
+
+        /* ARTICLE NAVIGATION */
+
+        .article-footer-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--line);
+        }
+
+        .article-footer-nav a {
+            color: var(--ink);
+            text-decoration: none;
+            font-size: .9rem;
+            transition: color .2s ease;
+        }
+
+        .article-footer-nav a:hover {
+            color: var(--brass);
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 650px) {
+            .article-page {
+                padding: 2.5rem 0 4rem;
+            }
+
+            .article-title {
+                font-size: 2.6rem;
+            }
+
+            .article-content {
+                font-size: 1rem;
+            }
+
+            .article-content .article-lead {
+                font-size: 1.1rem;
+            }
+
+            .article-content h2 {
+                font-size: 1.2rem;
+            }
+
+            .code-example pre {
+                font-size: .78rem;
+                padding: 1rem;
+            }
+
+            .article-footer-nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <header>
+        <nav class="wrap">
+            <a class="mark" href="index.html">RZ<span>.</span></a>
+
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="projects.html">Projects</a>
+                <a href="rifle-shooting.html">Shooting</a>
+                <a href="certificates.html">Certificates</a>
+                <a href="initiatives.html">Initiatives</a>
+                <a href="internships.html">Experience</a>
+                <a href="blog.html">Blog</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+
+    <!-- ARTICLE -->
+    <main class="article-page">
+        <div class="wrap article-container">
+
+            <a href="blog.html" class="article-back">
+                ← Back to all articles
+            </a>
+
+
+            <!-- ARTICLE HEADER -->
+            <header class="article-header">
+
+                <div class="article-category">
+                    Technology & Internship
+                </div>
+
+                <h1 class="article-title">
+                    Beyond the Vault: What a Bank Internship Taught Me About APIs
+                </h1>
+
+                <p class="article-subtitle">
+                    How an unexpected introduction to financial technology
+                    changed the way I understand the applications and systems
+                    we use every day.
+                </p>
+
+                <div class="article-meta">
+                    <span>By Rubaika Zaidi</span>
+                    <span class="meta-dot">•</span>
+                    <span>5 min read</span>
+                    <span class="meta-dot">•</span>
+                    <span>APIs & FinTech</span>
+                </div>
+
+            </header>
+
+
+            <hr class="article-divider">
+
+
+            <!-- ARTICLE CONTENT -->
+            <article class="article-content">
+
+                <p class="article-lead">
+                    I went into a bank expecting spreadsheets, paperwork
+                    and transactions. Instead, I found myself fascinated
+                    by the technology quietly connecting the financial world.
+                </p>
+
+                <p>
+                    Before my bank internship, I had a fairly conventional
+                    idea of what happened inside a bank. I imagined rows
+                    of computers, employees managing transactions, endless
+                    spreadsheets and, of course, the occasional mention
+                    of a vault.
+                </p>
+
+                <p>
+                    What I hadn't really considered was the technology
+                    working behind all of it.
+                </p>
+
+                <p>
+                    During my internship, I came across something that
+                    changed how I looked at modern banking:
+                    <strong>APIs (Application Programming Interfaces).</strong>
+                </p>
+
+                <p>
+                    I had encountered the term before while learning
+                    about programming, but it had always felt like one
+                    of those technical concepts you memorise without
+                    fully appreciating. Seeing its relevance in the
+                    financial sector made things click. I began to
+                    understand how applications that seem completely
+                    independent of one another can communicate, exchange
+                    information and work together almost instantaneously.
+                </p>
+
+
+                <!-- SECTION 1 -->
+                <h2>The Aha! Moment: How Do Apps Talk to Banks?</h2>
+
+                <p>
+                    I'd always wondered how applications like Google Pay
+                    could display banking information and facilitate
+                    transactions without actually being banks themselves.
+                </p>
+
+                <p>
+                    The answer, in many cases, involves APIs.
+                </p>
+
+                <p>
+                    Think of an API as a messenger between two software
+                    systems. It allows one application to request
+                    information or a service from another without
+                    needing direct access to its internal workings.
+                </p>
+
+                <p>
+                    For example, when you check your bank balance through
+                    a payment application, the application can send a
+                    request to the bank's server through an authorised
+                    interface. The bank verifies the request, checks
+                    the permissions and returns the required information.
+                </p>
+
+                <p>
+                    All of this happens in seconds.
+                </p>
+
+                <p>
+                    I found it fascinating that something as simple
+                    as tapping a button on my phone could trigger a
+                    series of communications between different systems,
+                    most of which I would never actually see.
+                </p>
+
+
+                <!-- SECTION 2 -->
+                <h2>Speaking the Language: A Little Bit of JSON</h2>
+
+                <p>
+                    As I learnt more about APIs, I came across another
+                    concept: JSON, short for JavaScript Object Notation.
+                </p>
+
+                <p>
+                    JSON is a lightweight format used to exchange
+                    information between applications. It organises
+                    data into key-value pairs, making it relatively
+                    easy for both humans and computers to understand.
+                </p>
+
+                <p>
+                    For example, imagine a payment application
+                    requesting an account balance. A simplified
+                    request might look something like this:
+                </p>
+
+                <!-- JSON REQUEST -->
+                <div class="code-example">
+                    <div class="code-label">Example API Request · JSON</div>
+                    <pre><code>{
+  "account_id": "123456789",
+  "action": "check_balance",
+  "secure_token": "example_token"
+}</code></pre>
+                </div>
+
+                <p>
+                    Once the request has been authenticated and
+                    authorised, the server might return a response
+                    like this:
+                </p>
+
+                <!-- JSON RESPONSE -->
+                <div class="code-example">
+                    <div class="code-label">Example API Response · JSON</div>
+                    <pre><code>{
+  "status": "success",
+  "account_id": "123456789",
+  "balance_available": 2500.00,
+  "currency": "INR"
+}</code></pre>
+                </div>
+
+                <p>
+                    The application can then read the
+                    <code>balance_available</code> value and display
+                    it to the user.
+                </p>
+
+                <p>
+                    What I found interesting was how such a small,
+                    structured piece of text could allow two entirely
+                    different systems to exchange meaningful information.
+                    No complicated interface was needed for the exchange
+                    itself; just a common format and a set of rules both
+                    systems understood.
+                </p>
+
+
+                <!-- SECTION 3 -->
+                <h2>The Invisible Shields: Keeping Financial Data Safe</h2>
+
+                <p>
+                    Of course, understanding how quickly information
+                    travels raised another question for me: how do banks
+                    ensure that all this data exchange is actually secure?
+                </p>
+
+                <p>
+                    After all, we're talking about financial information,
+                    where even a small security lapse can have serious
+                    consequences.
+                </p>
+
+                <p>
+                    This is where authentication, authorisation and
+                    encryption come in.
+                </p>
+
+                <p>
+                    APIs don't simply let every application access
+                    everything. They use credentials and access tokens
+                    to verify incoming requests and determine what
+                    information an application is permitted to access.
+                </p>
+
+                <p>
+                    For example, an application authorised to retrieve
+                    an account balance should not automatically have
+                    permission to access unrelated banking information.
+                    This follows a security principle called
+                    <em>least privilege</em>: giving a system only the
+                    access it needs to perform its function.
+                </p>
+
+                <p>
+                    Encryption provides another layer of protection
+                    by converting information into a format that cannot
+                    be easily understood by unauthorised parties while
+                    it is being transmitted.
+                </p>
+
+                <p>
+                    It made me realise that designing an API isn't
+                    just about making two applications communicate.
+                    It's about making sure they communicate safely,
+                    with the right permissions and within clearly
+                    defined boundaries.
+                </p>
+
+
+                <!-- SECTION 4 -->
+                <h2>Why This Matters</h2>
+
+                <p>
+                    One of my biggest takeaways from the internship
+                    was understanding how much modern banking depends
+                    on different systems working together.
+                </p>
+
+                <p>
+                    Banks don't necessarily need to develop every
+                    application or service themselves. APIs allow
+                    them to integrate with external platforms, payment
+                    applications and fintech companies, making it
+                    possible for different technologies to work
+                    together without having to build everything
+                    from scratch.
+                </p>
+
+                <p>
+                    As someone interested in computer science,
+                    this was particularly exciting.
+                </p>
+
+                <p>
+                    Until then, I had mostly thought about programming
+                    in terms of writing code, building applications
+                    and making things work. The internship introduced
+                    me to another side of software development:
+                    designing the connections that allow those
+                    applications to function together.
+                </p>
+
+                <p>
+                    A well-designed system doesn't necessarily have
+                    to do everything independently. Sometimes, its
+                    greatest strength lies in how effectively it
+                    communicates with other systems.
+                </p>
+
+
+                <!-- SECTION 5 -->
+                <h2>Precision Under Pressure</h2>
+
+                <p>
+                    Interestingly, this brought me back to something
+                    I know quite well outside the world of technology:
+                    competitive rifle shooting.
+                </p>
+
+                <p>
+                    Having spent years training and competing,
+                    I've learnt that precision often comes down
+                    to the smallest details. A slight change in
+                    posture, breathing or concentration can affect
+                    an entire shot.
+                </p>
+
+                <p>
+                    I see a similar importance of precision in
+                    programming. A misplaced character, an incorrect
+                    parameter or an authentication failure can
+                    prevent an API request from working as intended.
+                </p>
+
+                <p>
+                    The two experiences are obviously very different,
+                    but both have taught me the value of patience,
+                    consistency and paying attention to details.
+                </p>
+
+
+                <!-- SECTION 6 -->
+                <h2>Looking Beyond the Screen</h2>
+
+                <p>
+                    Since the internship, I've started looking at
+                    everyday applications a little differently.
+                    When I use a payment app, I find myself wondering
+                    what requests are being sent in the background,
+                    what information is being exchanged and how
+                    different systems manage to communicate so quickly.
+                </p>
+
+                <p>
+                    I went into the internship expecting to learn
+                    about how a bank operates. I came away with
+                    a much greater appreciation for the technology
+                    that makes modern banking possible.
+                </p>
+
+                <p>
+                    More importantly, it changed how I think about
+                    computer science. Technology isn't always about
+                    what we see on our screens. Some of the most
+                    interesting work happens behind them, in the
+                    systems that quietly connect everything.
+                </p>
+
+
+                <!-- CLOSING -->
+                <div class="article-closing">
+                    <p>
+                        <strong>
+                            I don't just want to understand these
+                            digital bridges anymore. I want to learn
+                            how to build them.
+                        </strong>
+                    </p>
+                </div>
+
+            </article>
+
+
+            <!-- ARTICLE TAGS -->
+            <div class="article-tags">
+                <span class="article-tag">Banking</span>
+                <span class="article-tag">APIs</span>
+                <span class="article-tag">JSON</span>
+                <span class="article-tag">FinTech</span>
+                <span class="article-tag">Computer Science</span>
+                <span class="article-tag">Internship</span>
+            </div>
+
+
+            <!-- ARTICLE NAVIGATION -->
+            <div class="article-footer-nav">
+                <a href="blog.html">← Back to the blog</a>
+                <a href="precision-under-pressure.html">
+                    Read: Precision Under Pressure →
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="wrap">
+            <p>
+                © 2026 Rubaika Zaidi. Built with curiosity and purpose.
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
